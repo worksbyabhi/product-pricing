@@ -28,6 +28,8 @@ cd client
 npm start
 ```
 
+portal should be accessible from http://localhost:3000/ if no other project is already running on port 3000
+
 ### Note
 
 - by default 1 admin user with username as admin and password as admin will be created. Use this to login to client portal.
