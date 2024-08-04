@@ -2,33 +2,71 @@
 
 ## Running the project
 
-- Run mongodb docker image
-
-`docker run --name mongodb -d -p 27017:27017 mongo`
-
-- add .env file with content:
+- add .env file with below content to pricingService:
 
 ```
 PORT=3004
 MONGO_URI=mongodb://localhost:27017/productPricingDB
+```
+
+- add .env file with below content to userManagementService:
+
+```
+PORT=3002
+MONGO_URI=mongodb://localhost:27017/userManagementDB
 JWT_SECRET=product_pricing_app
 ```
 
-- run the backend server
+- create folder for mounting database
 
 ```
-cd backend
+mkdir ./db-data/mongo
+```
+
+- install project dependencies
+
+```
+make install
+```
+
+- run the userManagementService in a seperate terminal
+
+```
+cd userManagementService
 npm run dev
 ```
 
-- run the frontend project
+- run the pricingService in a seperate terminal
+
+```
+cd pricingService
+npm run dev
+```
+
+- run the frontend project in a seperate terminal
 
 ```
 cd client
 npm start
 ```
 
-portal should be accessible from http://localhost:3000/ if no other project is already running on port 3000
+- start nginx apiGateway
+
+```
+make startApiGateway
+```
+
+portal should be accessible from http://localhost:3008/
+
+default admin user/pass: admin/admin
+
+[using the project ->](/docs/UsingProject.md)
+
+- stop nginx apiGateway
+
+```
+make stopApiGateway
+```
 
 ### Note
 
@@ -44,9 +82,19 @@ portal should be accessible from http://localhost:3000/ if no other project is a
 
 - Scalability, performance, security, usability, maintainability, and internationalization
 
-## Sequence Diagram
+## Context Diagram
 
-!["basic sequence diagram"](pricing.drawio.png)
+!["context diagram"](docs/context_diagram.png)
+
+- <b>Client</b>: The web or mobile application that interacts with the system.
+
+- <b>API Gateway (Nginx)</b>: The central component that routes requests to various backend services and handles authentication.
+
+- <b>User Management Service</b>: The service responsible for user authentication, session management, and user-related operations.
+
+- <b>Product Pricing Service</b>: The service responsible for handling pricing data and operations.
+
+!["uml diagram"](docs/flow_diagram.png)
 
 ## Solution Architecture
 
@@ -71,7 +119,7 @@ portal should be accessible from http://localhost:3000/ if no other project is a
 - Store owner user role can upload csv related to their store and save pricing records
 - Store owner can search and edit their pricing record
 
-### Backend
+### Backend Microservices
 
 #### Technologies:
 

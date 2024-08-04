@@ -6,7 +6,7 @@ import {
   TableComponentHeaders,
 } from "../../designSystem/table";
 import { PricingRecord } from "../../models";
-import { capitalizeFirstLetter, getUrl } from "../../utils/functions";
+import { capitalizeFirstLetter } from "../../utils/functions";
 
 export const UserDashboard = () => {
   const [storeContent, setStoreContent] = useState<PricingRecord[]>([]);
@@ -25,7 +25,7 @@ export const UserDashboard = () => {
           label: "Product name",
           accessor: key as keyof PricingRecord,
         });
-      } else if (["sku", "price", "data"].includes(key)) {
+      } else if (["sku", "price", "date"].includes(key)) {
         headers.push({
           label: capitalizeFirstLetter(key),
           accessor: key as keyof PricingRecord,
@@ -35,7 +35,7 @@ export const UserDashboard = () => {
   }
 
   useEffect(() => {
-    fetch(getUrl("/api/v1/pricing"), {
+    fetch("/api/v1/pricing", {
       credentials: "include",
     })
       .then((response) => {

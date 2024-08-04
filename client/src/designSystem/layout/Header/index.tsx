@@ -1,14 +1,13 @@
 import React from "react";
 import { HeaderWrapper, LogoutButton, MainNav, ProjectName } from "./styled";
 import { useUserContext } from "../../../store/LoggedUserStore";
-import { getUrl } from "../../../utils/functions/getUrl";
 import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const { user, clearUser } = useUserContext();
 
   const logoutClickHandler = () => {
-    fetch(getUrl("/logout"), {
+    fetch("/logout", {
       credentials: "include",
     })
       .then(() => {

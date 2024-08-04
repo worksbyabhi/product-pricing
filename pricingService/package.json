@@ -1,7 +1,7 @@
 {
-  "name": "product-pricing-backend",
+  "name": "product-pricing-service",
   "version": "0.0.1",
-  "description": "backend for the pricing app",
+  "description": "service for the pricing app",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -12,13 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.6",
-    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "install": "^0.13.0",
-    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
     "npm": "^10.8.2"
   },

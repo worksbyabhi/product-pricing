@@ -4,7 +4,7 @@ import {
   TableComponent,
   TableComponentHeaders,
 } from "../../designSystem/table";
-import { capitalizeFirstLetter, getUrl } from "../../utils/functions";
+import { capitalizeFirstLetter } from "../../utils/functions";
 import { Button } from "../../designSystem/button";
 import { Placeholder } from "../../designSystem/placeholder";
 import { ErrorMessage } from "./styled";
@@ -34,7 +34,7 @@ export const DisplayUploadedContent = (props: DisplayUploadedContentProps) => {
 
     const dataSaveHandler = () => {
       setSaveError(false);
-      fetch(getUrl("/api/v1/pricing/upload"), {
+      fetch("/api/v1/pricing/upload", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,6 @@ export const DisplayUploadedContent = (props: DisplayUploadedContentProps) => {
           }
         })
         .catch((e) => {
-          console.log(e);
           setSaveError(true);
         });
     };

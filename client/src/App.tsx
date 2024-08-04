@@ -3,19 +3,20 @@ import React, { useEffect } from "react";
 import { LoginComponent } from "./routes/Login";
 import { LayoutComponent } from "./designSystem/layout";
 import { useUserContext } from "./store/LoggedUserStore";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { UserDashboard } from "./routes/Dashboard";
-import { getUrl } from "./utils/functions/getUrl";
 import { AddPricing } from "./routes/AddPricing";
 
 function App() {
   const { user, updateUser, clearUser } = useUserContext();
+  const navigateTo = useNavigate();
 
   useEffect(() => {
-    fetch(getUrl("/session"), {
+    fetch("/session", {
       credentials: "include",
     })
       .then((response) => {
+        // console.log(response.headers.get("content-type"));
         if (!response.ok) {
           throw new Error("Invalid session");
         }
@@ -28,6 +29,7 @@ function App() {
       })
       .catch(() => {
         clearUser();
+        navigateTo("/");
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -43,7 +45,6 @@ function App() {
         ) : (
           <Route path="/" element={<LoginComponent />} />
         )}
-        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </LayoutComponent>
   );

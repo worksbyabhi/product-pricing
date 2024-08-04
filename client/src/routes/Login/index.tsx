@@ -6,7 +6,6 @@ import {
 } from "./styled";
 import { TextInput } from "../../designSystem/form";
 import { Button } from "../../designSystem/button";
-import { getUrl } from "../../utils/functions/getUrl";
 import { useUserContext } from "../../store/LoggedUserStore";
 
 export const LoginComponent = () => {
@@ -17,7 +16,7 @@ export const LoginComponent = () => {
 
   const loginFormSubmitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch(getUrl("/login"), {
+    fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

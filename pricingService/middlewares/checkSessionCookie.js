@@ -1,19 +1,20 @@
-const jwt = require("jsonwebtoken");
-
 const checkSessionCookie = (req, res, next) => {
-  const token = req.cookies["x-pp-token"];
+  //logggedInUser for authorization purpose
+  const loggedInUser = req.headers["x-pp-user"];
+  // console.log(JSON.parse(loggedInUser));
+
+  const token = req.headers["x-pp-token"];
+  const tokenExpiry = req.headers["x-pp-token-expiry"];
 
   if (!token) {
     return res.status(401).send({ error: "Authentication required" });
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.loggedInUser = decoded;
     res.cookie("x-pp-token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      maxAge: 30 * 60 * 1000,
+      expires: new Date(tokenExpiry),
     });
     next();
   } catch (err) {

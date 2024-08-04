@@ -15,7 +15,6 @@ export const AddPricing = () => {
     const lines = text.split("\n");
     const headers = lines[0].split(",");
     const data: PricingRecord[] = [];
-    console.log(lines.slice(1));
 
     lines.slice(1).forEach((line) => {
       if (line !== "") {

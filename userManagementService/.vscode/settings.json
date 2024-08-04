@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true,
+  "files.refactoring.autoSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}
