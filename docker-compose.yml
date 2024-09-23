@@ -2,7 +2,7 @@ services:
   nginx:
     image: api-gateway-service:0.0.1
     ports:
-      - "3008:3008"
+      - "80:80"
     depends_on:
       - mongodb
       - client-service
