@@ -1,10 +1,13 @@
 services:
   nginx:
-    build:
-      context: ./apiGateway
-      dockerfile: nginx.dockerfile
+    image: api-gateway-service:0.0.1
     ports:
       - "3008:3008"
+    depends_on:
+      - mongodb
+      - client-service
+      - user-management-service
+      - pricing-service
 
   mongodb:
     image: mongo
@@ -12,3 +15,24 @@ services:
       - "27017:27017"
     volumes:
       - ./db-data/mongo/:/data/db
+
+  client-service:
+    image: client-service:0.0.1
+    ports:
+      - "3000:3000"
+
+  user-management-service:
+    image: user-management-service:0.0.1
+    ports:
+      - "3002:3002"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/userManagementDB
+      - JWT_SECRET=product_pricing_app
+
+  pricing-service:
+    image: pricing-service:0.0.1
+    ports:
+      - "3004:3004"
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/productPricingDB
+      - JWT_SECRET=product_pricing_app
